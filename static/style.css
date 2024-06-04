@@ -1,0 +1,12 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#recipes .card {
+    margin-bottom: 20px;
+}
+
+#recipes .card img {
+    height: 200px;
+    object-fit: cover;
+}
