@@ -1,12 +1,6 @@
-body {
-    font-family: Arial, sans-serif;
+.center{
+    margin:auto;
+    width: 50%;
+    padding: 10px;
 }
 
-#recipes .card {
-    margin-bottom: 20px;
-}
-
-#recipes .card img {
-    height: 200px;
-    object-fit: cover;
-}
