@@ -5,24 +5,77 @@
 {% endblock %}
 
 {% block main %}
-<div class="container">
-    <h2> Current Weather in {{ location.name }}</h2>
-    <p> Temperature: {{ temp }}°F</p>
-    <p> Condition: {{ condition }}</p>
-    <img src="http:{{ condition_icon }}" alt="{{ condition_icon }}">
-    
+<div class="container mx-auto mt-4 text-center">
+    <div class="card col-span-1 p-4 text-center bg-white-100 rounded-lg shadow-md">
+        <div class="">
+            <h2><strong>{{ location.name }}</strong></h2>
+            <img src="http:{{ condition_icon }}" alt="{{ condition }}" class="mx-auto">
+        </div>
+        <div class="card-body m2-2">
+            <p class="card-text"><strong>{{ temp }}°F</strong></p>
+            <p class="card-text"><strong>{{ condition }}</strong></p>
+        </div>
+    </div>
 </div>
-<h2> 7 day Forecast</h2>
-<div class="row">
+
+<h2 class="mt-5 text-center">Hourly Temperature Chart</h2>
+<div class="container mx-auto w-full max-w-2xl">
+    <canvas id="hourlyChart"></canvas>
+</div>
+
+<h2 class="mt-5 text-center">7-Day Forecast</h2>
+<div class="container mx-auto grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
     {% for day in forecast %}
-    <div class="col-md-3 card" style="padding: 15px;">
-        <img src="http:{{ day.day.condition.icon }}" alt="{{ day.day.condition.text }}">
-        <div class ='card-body'>
-        <h5>{{day.date}}</h5>
-        <p>{{day.day.maxtemp_f}}°F / {{day.day.mintemp_f}}°F</p>
-        <p>Condition: {{day.day.condition.text}}</p>
+    <div class="card col-span-1 p-4 text-center bg-white-100 rounded-lg shadow-md">
+        <img src="http:{{ day.day.condition.icon }}" alt="{{ day.day.condition.text }}" class="mx-auto">
+        <div class="card-body mt-2">
+            <h5><Strong>{{ day.day_name }}</Strong></h5>
+            <p><strong>{{ day.day.maxtemp_f }}°F / {{ day.day.mintemp_f }}°F</strong></p>
+            <p><strong>{{ day.day.condition.text }}</strong></p>
         </div>
     </div>
     {% endfor %}
 </div>
+
+<script>
+    // Parse JSON data from the template
+    var hours = JSON.parse('{{ hours|tojson|safe }}');
+    var temperatures = JSON.parse('{{ temperatures|tojson|safe }}');
+
+    // Debugging: Log data to ensure it's correct
+    console.log('Hours:', hours);
+    console.log('Temperatures:', temperatures);
+
+    // Initialize Chart.js chart
+    var ctx = document.getElementById('hourlyChart').getContext('2d');
+    var hourlyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: hours,
+            datasets: [{
+                label: 'Temperature (°F)',
+                data: temperatures,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Time'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Temperature (°F)'
+                    }
+                }
+            }
+        }
+    });
+</script>
 {% endblock %}
