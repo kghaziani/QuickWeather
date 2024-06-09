@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Weather
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <h2> Current Weather in {{ location.name }}</h2>
+    <p> Temperature: {{ temp }}°F</p>
+    <p> Condition: {{ condition }}</p>
+    <img src="http:{{ condition_icon }}" alt="{{ condition_icon }}">
+    
+</div>
+<h2> 7 day Forecast</h2>
+<div class="row">
+    {% for day in forecast %}
+    <div class="col-md-3 card" style="padding: 15px;">
+        <img src="http:{{ day.day.condition.icon }}" alt="{{ day.day.condition.text }}">
+        <div class ='card-body'>
+        <h5>{{day.date}}</h5>
+        <p>{{day.day.maxtemp_f}}°F / {{day.day.mintemp_f}}°F</p>
+        <p>Condition: {{day.day.condition.text}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
