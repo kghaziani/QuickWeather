@@ -5,26 +5,30 @@
 {% endblock %}
 
 {% block main %}
-<div class="container mx-auto mt-4 text-center">
-    <div class="card col-span-1 p-4 text-center bg-white-100 rounded-lg shadow-md">
-        <div class="">
+<div class="flex-container">
+
+    <div class="flex-child ">
+        <div class="card bg-white-100 rounded-lg shadow-md" >
+            <div class="card-body m2-2">
             <h2><strong>{{ location.name }}</strong></h2>
+            <p class="card-text"><strong>{{ location.localtime }}</strong></p>
             <img src="http:{{ condition_icon }}" alt="{{ condition }}" class="mx-auto">
-        </div>
-        <div class="card-body m2-2">
             <p class="card-text"><strong>{{ temp }}°F</strong></p>
             <p class="card-text"><strong>{{ condition }}</strong></p>
+            </div>
         </div>
     </div>
-</div>
+    
+    <div class="flex-child ">
+        <h2 class="mt-5 text-center display-4">Hourly Forecast</h2>
+        <div class="container mx-auto w-full max-w-2xl">
+            <canvas id="hourlyChart"></canvas>
+        </div>
+    </div>
+  </div>
 
-<h2 class="mt-5 text-center">Hourly Temperature Chart</h2>
-<div class="container mx-auto w-full max-w-2xl">
-    <canvas id="hourlyChart"></canvas>
-</div>
-
-<h2 class="mt-5 text-center">7-Day Forecast</h2>
-<div class="container mx-auto grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+<h2 class="mt-5 text-center display-4">Weekly Forecast</h2>
+<div class="container mx-auto grid grid-cols-1 gap-4 lg:grid-cols-7 lg:gap-8">
     {% for day in forecast %}
     <div class="card col-span-1 p-4 text-center bg-white-100 rounded-lg shadow-md">
         <img src="http:{{ day.day.condition.icon }}" alt="{{ day.day.condition.text }}" class="mx-auto">

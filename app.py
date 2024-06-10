@@ -34,6 +34,7 @@ def get_weather():
 
     try:
         location = data['location']
+        current = data['current']
         current_temp = data['current']['temp_f']
         current_condition = data['current']['condition']['text']
         condition_icon = data['current']['condition']['icon']
@@ -63,7 +64,8 @@ def get_weather():
     except KeyError as e:
         return f"Missing key in the API response: {e}"
 
-    return render_template('weather.html', location=location, temp=current_temp, condition=current_condition, condition_icon=condition_icon, forecast=forecast, hourly_forecast=hourly_forecast, hours=hours, temperatures=temperatures)
+    return render_template('weather.html', location=location, current=current, temp=current_temp, condition=current_condition, condition_icon=condition_icon, 
+                           forecast=forecast, hourly_forecast=hourly_forecast, hours=hours, temperatures=temperatures)
 
 if __name__ == '__main__':
     app.run(debug=True)
