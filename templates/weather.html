@@ -5,29 +5,26 @@
 {% endblock %}
 
 {% block main %}
+<h2 class="text-center display-4">{{ location.name }},{{location.region}}</h2>
 <div class="flex-container">
-
-    <div class="flex-child ">
-        <div class="card bg-white-100 rounded-lg shadow-md" >
-            <div class="card-body m2-2">
-            <h2><strong>{{ location.name }}</strong></h2>
-            <p class="card-text"><strong>{{ location.localtime }}</strong></p>
-            <img src="http:{{ condition_icon }}" alt="{{ condition }}" class="mx-auto">
-            <p class="card-text"><strong>{{ temp }}°F</strong></p>
-            <p class="card-text"><strong>{{ condition }}</strong></p>
+    <div class="flex-child">
+        <div class="card-main text-center rounded-lg shadow-md">
+            <div class="card-body m2-2" style="padding: 5px;">
+                <img src="http:{{ condition_icon }}" alt="{{ condition }}" class="mx-auto">
+                <p class="card-text"><strong>{{ formatted_localtime }}</strong></p>
+                <p class="card-text"><strong>{{ temp }}°F</strong></p>
+                <p class="card-text"><strong>{{ condition }}</strong></p>
+                <p class="card-text"><strong>Wind: {{ current.wind_dir }}, {{ current.wind_mph }} MPH</strong></p>
+                <p class="card-text"><strong>Humidity: {{ current.humidity }}%</strong></p>
             </div>
         </div>
     </div>
-    
-    <div class="flex-child ">
-        <h2 class="mt-5 text-center display-4">Hourly Forecast</h2>
+    <div class="flex-child">
         <div class="container mx-auto w-full max-w-2xl">
             <canvas id="hourlyChart"></canvas>
         </div>
     </div>
-  </div>
-
-<h2 class="mt-5 text-center display-4">Weekly Forecast</h2>
+</div>
 <div class="container mx-auto grid grid-cols-1 gap-4 lg:grid-cols-7 lg:gap-8">
     {% for day in forecast %}
     <div class="card col-span-1 p-4 text-center bg-white-100 rounded-lg shadow-md">
@@ -36,9 +33,12 @@
             <h5><Strong>{{ day.day_name }}</Strong></h5>
             <p><strong>{{ day.day.maxtemp_f }}°F / {{ day.day.mintemp_f }}°F</strong></p>
             <p><strong>{{ day.day.condition.text }}</strong></p>
+            <p><strong>Max Wind: {{ day.day.maxwind_mph }}MPH</strong></p>
+            <p><strong> Avg Humidity: {{ day.day.avghumidity }}%</strong></p>
         </div>
     </div>
     {% endfor %}
+
 </div>
 
 <script>

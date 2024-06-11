@@ -49,6 +49,10 @@ def get_weather():
         current_time = datetime.now()
         end_time = current_time + timedelta(hours=24)
 
+        # Convert localtime to show just time and day
+        localtime = datetime.strptime(location['localtime'], '%Y-%m-%d %H:%M')
+        formatted_localtime = localtime.strftime('%A, %I:%M %p')
+
         # Filter hourly data for the next 24 hours
         hourly_forecast = []
         hours = []
@@ -65,7 +69,8 @@ def get_weather():
         return f"Missing key in the API response: {e}"
 
     return render_template('weather.html', location=location, current=current, temp=current_temp, condition=current_condition, condition_icon=condition_icon, 
-                           forecast=forecast, hourly_forecast=hourly_forecast, hours=hours, temperatures=temperatures)
+                           forecast=forecast, hourly_forecast=hourly_forecast, hours=hours, temperatures=temperatures,
+                           formatted_localtime=formatted_localtime)
 
 if __name__ == '__main__':
     app.run(debug=True)
