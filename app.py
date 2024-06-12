@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import requests
 from dotenv import load_dotenv
-import os
+import os 
 from datetime import datetime, timedelta
 
 # Load environment variables from .env file

@@ -20,9 +20,6 @@
     margin-right: 20px;
 } 
 
-.section:last-child {
-    border-bottom: none;
-}
 .card-main {
     width: 300px;
     background-color: white;
