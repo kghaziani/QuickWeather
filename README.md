@@ -1,11 +1,14 @@
 # QuickWeather
-#### Video Demo:  <URL HERE>
-#### Description:
+## Video Demo:  <URL HERE>
+## Description:
 QuickWeather gives people quick and simple access to weather information. Users can enter a location and get today’s weather, an hourly weather chart, and a weather forecast. Current temperature, weather condition, wind condition, and humidity.
 
 QuickWeather was created using HTML CSS, Flask, Javascript, and a weather API(https://www.weatherapi.com/).
 
-app.py
+Design
+My goal was to ensure that users would not need to scroll to get what they need. All information should be readily available for utility.
+
+## app.py
 
 I used flask to host QuickWeather and [app.py](http://app.py) stores the code. 
 
@@ -47,13 +50,13 @@ I wanted to change the format of the API response’s time data so I created new
 
 I had to create a for loop so I can show also show hourly data.
 
-Templates
+## Templates:
 
-index.html
+## index.html:
 
 I went for simple design aesthetics for the web page. The background is light orange cream color representing summer weather vibes. Index.html holds the layout of the page and uses bootstrap for styling. There is a navbar at the top for aesthetic purposes with a sun icon. The form asks the user for a location with a submit button on the left. Underneath there is a tagline text. I ensured that these elements were centered and the top of the page and ready for user access.
 
-weather.html
+## weather.html:
 
 The page has three components: current weather card, 24-hour weather chart, and weekly weather. I made the current weather elements side-by-side using a flex container. The current weather is represented as a card with time, temperature, weather condition, wind, and humidity information. 
 
@@ -61,9 +64,8 @@ I used javascript to create the chart. This was done by parsing data using jinga
 
 The weekly weather forecast uses Tailwind styling to create a grid with 7 columns and outputs the 7-day weather data using a for loop.
 
-static
 
-style.css
+## style.css:
 
 I used flex containers and flex child for organizing current weather contents.
 
@@ -98,7 +100,3 @@ I needed to style the current weather card differently than the forecast card be
     overflow: hidden;
 }
 ```
-
-Design
-
-My goal was to ensure that users would not need to scroll to get what they need. All information should be readily available for utility.
