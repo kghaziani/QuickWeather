@@ -2,6 +2,3 @@
 2. css page
 3. flask page
 
-
-brain storm:
-i need to access freeweather
