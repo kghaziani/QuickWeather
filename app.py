@@ -3,6 +3,7 @@ import requests
 from dotenv import load_dotenv
 import os 
 from datetime import datetime, timedelta
+from pytz import timezone
 
 # Load environment variables from .env file
 load_dotenv()
@@ -45,8 +46,11 @@ def get_weather():
             day_date = datetime.strptime(day['date'], '%Y-%m-%d')
             day['day_name'] = day_date.strftime('%A')
 
+        # Assume the location's timezone
+        local_tz = timezone(location['tz_id'])
+        
         # Get current time
-        current_time = datetime.now()
+        current_time = datetime.now(local_tz)
         end_time = current_time + timedelta(hours=24)
 
         # Convert localtime to show just time and day
@@ -59,7 +63,7 @@ def get_weather():
         temperatures = []
         for day in forecast:
             for hour in day['hour']:
-                hour_time = datetime.strptime(hour['time'], '%Y-%m-%d %H:%M')
+                hour_time = datetime.strptime(hour['time'], '%Y-%m-%d %H:%M').replace(tzinfo=local_tz)
                 if current_time <= hour_time < end_time:
                     hourly_forecast.append(hour)
                     hours.append(hour_time.strftime('%I %p'))  # Format time as HH AM/PM

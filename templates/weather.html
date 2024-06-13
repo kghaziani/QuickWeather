@@ -50,6 +50,11 @@
     console.log('Hours:', hours);
     console.log('Temperatures:', temperatures);
 
+    // Check if data lengths match
+    if (hours.length !== temperatures.length) {
+    console.error('Data length mismatch: ', hours.length, temperatures.length);
+    }
+
     // create Chart.js chart
     var ctx = document.getElementById('hourlyChart').getContext('2d');
     var hourlyChart = new Chart(ctx, {
